@@ -1,0 +1,24 @@
+html, body, #app, #mapframe {
+    height: 100%;
+    width: 100%;
+}
+#mapframe {
+    position:relative;
+}
+
+#mapid {
+    width: auto;
+    height: 100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.navbar {
+    padding: 0px;
+}
+
+#hoverbar {
+    position: absolute;
+    left:5%;
+    top:2%;
+    z-index:900;
+}
