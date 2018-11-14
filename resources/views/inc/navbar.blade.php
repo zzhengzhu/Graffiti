@@ -14,9 +14,6 @@
                   <a class="nav-link" href="{{route('pages.index')}}">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#">Post <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
                   <a class="nav-link" href="/posts">My Posts <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">

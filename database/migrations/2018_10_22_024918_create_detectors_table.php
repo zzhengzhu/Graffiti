@@ -22,6 +22,7 @@ class CreateDetectorsTable extends Migration
             $table->text('type')->nullable();
             $table->unsignedBigInteger('radius')->default('100');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

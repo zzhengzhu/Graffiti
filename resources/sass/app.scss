@@ -7,13 +7,19 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+//leaflet
+@import '~leaflet/dist/leaflet.css';
+//leaflet plugins
+@import '~leaflet.marker.highlight/dist/leaflet.marker.highlight.css';
+//@import '~leaflet.beautifymarker/leaflet-beautify-marker-icon.css';
+//@import '~@ansur/leaflet-pulse-icon/dist/L.Icon.Pulse.css';
 
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-//Leaflet
+//custom Leaflet
 @import 'leaflet';
 
 // Custom CSS

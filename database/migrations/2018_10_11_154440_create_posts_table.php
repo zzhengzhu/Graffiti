@@ -23,8 +23,9 @@ class CreatePostsTable extends Migration
             $table->text('link')->nullable();
             $table->text('type')->nullable();
             $table->unsignedBigInteger('radius')->default('100');
-            $table->unsignedBigInteger('pointto_id')->nullable();
+            $table->text('pointto_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

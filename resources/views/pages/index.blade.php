@@ -41,10 +41,15 @@
             </button>
             </div>
             <div class="modal-body" >
+            <div id="selectnode" class="row d-none">
+                <p class="pl-3 m-1">This post is point to a marker</p>
+                <button type="button" class="btn btn-dark btn-sm" onclick=deselect()>Cancel Selection</button>
+            </div>
             <form method="post" action="{{route('posts.store')}}">
                     @csrf
                     <input type="hidden" name="lat" id="modal_lat" value="">
                     <input type="hidden" name="lng" id="modal_lng" value="">
+                    <input type="hidden" name="pointto" id="marker_id" value="">
                     <div class="form-group">
                         <label class="col-form-label">Content:</label>
                         <textarea class="form-control" name="content" rows="10"></textarea>
@@ -55,9 +60,6 @@
                     </div>
                     <button type="submit" class="btn btn-dark col-sm-12">Submit</button>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
         </div>
@@ -74,24 +76,25 @@
             </button>
             </div>
             <div class="modal-body" >
-            <form method="post" action="{{route('posts.store')}}">
+            <form method="post" action="{{route('pinpoints.store')}}">
                     @csrf
                     <!-- type="hidden" -->
-                    <input type="text" name="lat" id="pp_lat" value="">
-                    <input type="text" name="lng" id="pp_lng" value="">
+                    <input type="hidden" name="lat" id="pp_lat" value="">
+                    <input type="hidden" name="lng" id="pp_lng" value="">
                     <div class="form-group">
                         <label class="col-form-label">Content:</label>
-                        <textarea class="form-control" name="content" rows="10"></textarea>
+                        <textarea class="form-control" name="content" rows="7"></textarea>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Link:</label>
                         <input type="text" class="form-control" name="link" placeholder="Optional">
                     </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Radius:</label>
+                        <input type="text" class="form-control" name="radius" placeholder="The radius of Pinpoint in meters">
+                    </div>
                     <button type="submit" class="btn btn-dark col-sm-12">Submit</button>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
         </div>
@@ -137,6 +140,93 @@
                 
             });
         }
+        //make it global?
+        var nodelist = [];
+        
+        function Node(id) {
+            this.id = id;
+            this.fromid = [];
+            this.toid = null;
+            this.marker = null;
+            this.line = null;
+            this.addfromid = function(id) {
+                this.fromid.push(id);
+                return null;
+            }
+            nodelist.push(this);
+        }
+        function getNode(id) {
+            for(let node of nodelist) {
+                //console.log("search node:" + id);
+                //console.log(node.id);
+                if (node.id == id) {
+                    //console.log("matched!");
+                    return node;
+                }
+            }
+            //console.log("new node");
+            return new Node(id);
+        }
+        function nodeExist(id) {
+            for(node in nodelist) {
+                if (node.id == id) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        function chainOpen(e) {
+            var node = getNode(e.target.id);
+            //console.log(node);
+            //console.log(nodelist);
+            if (node.line) {
+                //add line
+                if (node.line.getLatLngs().length == 0) {
+                    var pt1 = node.marker.getLatLng();
+                    var pt2 = getNode(node.toid).marker.getLatLng();
+                    node.line.setLatLngs([pt1,pt2]);
+                    node.line.options.delay = Math.min(150 + pt1.distanceTo(pt2)/2, 900);
+                }
+                node.line.addTo(mymap);
+                //add to_node
+                getNode(node.toid).marker.openPopup();
+            }
+            //add other nodes
+            for(let id of node.fromid) {
+                //use isPopupOpen()?
+                getNode(id).marker.openPopup();
+            }
+        }
+        function chainClose(e) {
+            var node = getNode(e.target.id);
+            if (node.line) {
+                //close line
+                if (node.line.getLatLngs().length == 0) {
+                    var pt1 = node.marker.getLatLng();
+                    var pt2 = getNode(node.toid).marker.getLatLng();
+                    node.line.setLatLngs([pt1,pt2]);
+                    node.line.options.delay = Math.min(150 + pt1.distanceTo(pt2)/2, 900);
+                }
+                node.line.remove(mymap);
+            }
+
+            //closePopup()?
+        }
+        function clickMarker(e) {
+            var marker = e.target;
+            console.log(marker);
+            proxyhighlight.setLatLng(marker.getLatLng());
+            document.getElementById("marker_id").value = marker.id;
+            document.getElementById("selectnode").classList.remove('d-none');
+        }
+        
+        function deselect() {
+            proxyhighlight.setLatLng([0,0]);
+            document.getElementById("marker_id").value = null;
+            document.getElementById("selectnode").classList.add('d-none');
+        }
+
+
         $(document).ready(function(){
             //instruct jQuery to automatically add the token to all request headers
             $.ajaxSetup({
@@ -145,7 +235,7 @@
                 }
             });
 
-            var mymap = L.map('mapid');//.locate({setView: true, maxZoom: 17});
+            mymap = L.map('mapid', {wheelPxPerZoomLevel: 120});//.locate({setView: true, maxZoom: 17});
             if (postjson) {
                 mymap.setView([postjson.coordinates[1], postjson.coordinates[0]], 17);
             } else {
@@ -159,6 +249,16 @@
                 accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
             }).addTo(mymap);
             
+            /*
+            var polyline = L.polyline([[43.468665, -80.544752], [43.470869, -80.545846]]);
+            var decorator = L.polylineDecorator(polyline, {
+                patterns: [
+                    // defines a pattern of 10px-wide dashes, repeated every 20px on the line
+                    {offset: 0, repeat: 20, symbol: L.Symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true}})}
+                ]
+            }).addTo(mymap);
+            */
+
             //circle
             var circle = L.circle(mylatlng, {
                 color: 'opaque',
@@ -168,18 +268,26 @@
             });
             circle.addTo(mymap);
             //cursor
-            var popup = L.popup();
+            var pulsingIcon = L.icon.pulse({iconSize:[10,10],color:'blue'});
+            var mainmarker =new L.marker([0,0], {icon: pulsingIcon}).bindPopup().addTo(mymap);
             function onMapClick(e) {
-                popup
+                mainmarker
                     .setLatLng(e.latlng)
-                    .setContent("You clicked the map at " + e.latlng.toString()
-                        + "/ Distance:" + e.latlng.distanceTo(mylatlng))
-                    .openOn(mymap);
+                    .setPopupContent("You clicked the map at " + e.latlng.toString()
+                        + "/ Distance:" + e.latlng.distanceTo(mylatlng));
                 //update lat and lng in modal
                 document.getElementById("pp_lat").value = e.latlng.lat;
                 document.getElementById("pp_lng").value = e.latlng.lng;
             }
             mymap.on('click', onMapClick);
+            
+            var smicon = L.BeautifyIcon.icon({
+                icon: 'location-arrow',
+                iconShape: 'circle-dot',
+                borderColor: 'transparent',
+                popupAnchor: [0, 0]
+            });
+            proxyhighlight =new L.marker([0,0], {highlight: "permanent", icon: smicon}).addTo(mymap);
 
             //initialize exp, energy
             $("#energy").html("ENERGY {{$energy}}");
@@ -194,7 +302,7 @@
                 $.each(markers,function(i,val){
                     var m_location = L.latLng(val.location.coordinates[1], val.location.coordinates[0]);
                     var m_username ="<p class='my-0 text-primary font-weight-bold'>" + val.user_name + "</p>";
-                    var m_radius = "<p class='my-0 text-success font-weight-bold'>Radius: " + val.radius + "</p>";
+                    //var m_radius = "<p class='my-0 text-success font-weight-bold'>Radius: " + val.radius + "</p>";
                     //var m_user_id = val.user_id;
                     //var m_radius = val.radius;
                     var html = document.createElement("div");
@@ -203,47 +311,95 @@
                         var m_content = "<p class='my-0'>" + val.content + "</p>";
                         $(html).append(m_content);
                     }
-                    var marker = new L.Marker(m_location);
-
                     if(val.link) {
-                        var link = "<img class='rounded mx-auto d-block' href="+ val.link +"></img>";
+                        var link = "<img class='rounded mx-auto d-block img-responsive' style='max-width: 300px; height: auto' src="+ val.link +"></img>";
                         $(html).append(link);
                         //icon
                     } else {
                         //icon
                     }
-                    $(html).append(m_radius);
+                    //$(html).append(m_radius);
                     var button = "<button onClick=upvote("+ val.id +")>Upvote</button>";
                     $(html).append(button);
-                    marker.bindPopup(html);
-                    marker.addTo(mymap);
+
+                    var m_id = "po" + val.id;
+                    var node = getNode(m_id);
+                    if (val.pointto_id) {
+                        node.toid = val.pointto_id;
+                        getNode(val.pointto_id).addfromid(m_id);
+                        node.line = new L.Polyline.AntPath([], {delay: 700});
+                    } 
+                    var icon = L.BeautifyIcon.icon({
+                        icon: 'location-arrow',
+                        iconShape: 'marker',
+                        borderColor: 'deepskyblue',
+                        textColor: 'deepskyblue',
+                        popupAnchor: [0, -20]
+                    });
+                    node.marker = new L.Marker(m_location, {highlight: 'temporary', icon: icon});
+                    node.marker.id = m_id;
+                    node.marker.bindPopup(html, {autoClose: false});
+                    node.marker.on({
+                        popupopen: chainOpen,
+                        popupclose: chainClose,
+                        click: clickMarker
+                    });
+                    //console.log(node);
+                    //console.log(nodelist);
+                    node.marker.addTo(mymap);
+                    //node.marker.openPopup();
                 });
             });
 
             //initialize pinpoint markers
             $.post("/pages/loadpinpoints",{lat:lat, lng:lng},function(markers){
-                //console.log(markers);
+                console.log(markers);
                 $.each(markers,function(i,val){
+                    console.log(val);
                     var m_location = L.latLng(val.location.coordinates[1], val.location.coordinates[0]);
                     var m_username ="<p class='my-0 text-primary font-weight-bold'>" + val.user_name + "</p>";
-                    var m_radius = "<p class='my-0 text-success font-weight-bold'>Radius: " + val.radius + "</p>";
+                    //var m_radius = "<p class='my-0 text-success font-weight-bold'>Radius: " + val.radius + "</p>";
                     var html = document.createElement("div");
                     $(html).append(m_username);
                     if(val.content) {
                         var m_content = "<p class='my-0'>" + val.content + "</p>";
                         $(html).append(m_content);
                     }
-                    var marker = new L.Marker(m_location);
-                    if(val.link) {
-                        var link = "<img class='rounded mx-auto d-block' href="+ val.link +"></img>";
+                    if(val.link) {  
+                        var link = "<img class='rounded mx-auto d-block img-responsive' style='max-width: 300px; height: auto' src="+ val.link +"></img>";
                         $(html).append(link);
                         //icon
                     } else {
                         //icon
                     }
-                    $(html).append(m_radius);
-                    marker.bindPopup(html);
-                    marker.addTo(mymap);
+                    //$(html).append(m_radius);
+                    
+                    //retrieve existing node or create a new node
+                    var m_id = "pp" + val.id;
+                    var node = getNode(m_id);
+                    if (val.pointto_id) {
+                        node.toid = val.pointto_id;
+                        getNode(val.pointto_id).addfromid(m_id);
+                        node.line = new L.Polyline.AntPath([], {delay: 700});
+                    } 
+                    //var pulsingIcon = L.icon.pulse({iconSize:[20,20],color:'red'});
+                    var icon = L.BeautifyIcon.icon({
+                        icon: 'map-pin',
+                        iconShape: 'circle',
+                        popupAnchor: [0, 0]
+                    });
+                    node.marker = new L.Marker(m_location, {highlight: 'temporary', icon: icon});
+                    node.marker.id = m_id;
+                    node.marker.bindPopup(html, {autoClose: false});
+                    node.marker.on({
+                        popupopen: chainOpen,
+                        popupclose: chainClose,
+                        click: clickMarker
+                    });
+                    //console.log(node);
+                    //console.log(nodelist);
+                    node.marker.addTo(mymap);
+                    //node.marker.openPopup();
                 });
             });
         })

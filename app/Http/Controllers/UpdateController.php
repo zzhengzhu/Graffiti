@@ -22,7 +22,7 @@ class UpdateController extends Controller
     {
         $id = Auth::id();
         $root = false;
-        if (in_array($id, [12])) {
+        if (in_array($id, [1])) {
             $root = true;
         }
         $logs = Update::orderBy('created_at', 'desc')->get();

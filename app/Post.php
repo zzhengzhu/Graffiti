@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 // It must use the SpatialTrait and define an array called spatialFields
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
     use SpatialTrait;
+    use SoftDeletes;
     //Table Name
     protected $table = 'posts';
     //Primary Key
@@ -20,4 +22,5 @@ class Post extends Model
     protected $spatialFields = [
         'location',
     ];
+    protected $dates = ['deleted_at'];
 }

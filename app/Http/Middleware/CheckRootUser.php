@@ -17,7 +17,7 @@ class CheckRootUser
      */
     public function handle($request, Closure $next)
     {
-        if (in_array(Auth::id(), [12])) {
+        if (in_array(Auth::id(), [1])) {
             return $next($request);
         }
         return redirect(route('PagesController@index')->with('error','Assess Denied'));

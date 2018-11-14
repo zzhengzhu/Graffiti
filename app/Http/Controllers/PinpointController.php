@@ -123,7 +123,7 @@ class PinpointController extends Controller
 
         if($delpinpoint->user_id == Auth::id()) {
             $delpinpoint->delete();
-            return redirect(route('posts.index'))->with('success', 'Post Deleted');
+            return redirect(route('posts.index'))->with('success', 'Pinpoint Deleted');
         } else {
             return redirect(route('posts.index'))->with('error', 'Access Denied');
         }

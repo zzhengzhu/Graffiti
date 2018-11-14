@@ -9,6 +9,8 @@ use Grimzy\LaravelMysqlSpatial\Types\Point;
 //You may access the authenticated user via the Auth facade
 use Illuminate\Support\Facades\Auth;
 use App\User;
+//only use in index
+use App\Pinpoint;
 
 class PostController extends Controller
 {
@@ -25,7 +27,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::where('user_id', Auth::id())->get();
-        return view('posts.index')->with('posts', $posts);
+        $pinpoints = Pinpoint::where('user_id', Auth::id())->get();
+        return view('posts.index', ['posts' => $posts, 'pinpoints' => $pinpoints]);
     }
 
     /**
@@ -57,7 +60,7 @@ class PostController extends Controller
             return redirect(route('pages.index'))->with('error', 'Not Enough Energy');
         } else {
             $user->energy -= 100;
-            $user->exp += 100;
+            $user->exp += 50;
             $user->save();
 
             $point = new Point($request->input('lat'), $request->input('lng'));
@@ -65,6 +68,10 @@ class PostController extends Controller
             $post->user_id = Auth::id();
             $post->user_name = Auth::user()['name'];
             $post->location = $point;
+            if (in_array(Auth::id(), [1])) {
+                $post->type = 'admin';
+            }
+            $post->pointto_id = $request->input('pointto');
             $post->content = $request->input('content');
             $post->link = $request->input('link');
             $post->save();

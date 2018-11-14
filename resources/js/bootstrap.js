@@ -1,6 +1,18 @@
 
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
+//add leaflet
+window.leaflet = require('leaflet');
+//IconDefault.options.imagePath = 'images/vendor/leaflet/dist/';
+
+//add leaflet plugins
+window.rotatedmarker = require('leaflet-rotatedmarker');
+window.polylinedecor = require('leaflet-polylinedecorator');
+window.markerhighlight = require('leaflet.marker.highlight');
+window.leafletantpath = require('leaflet-ant-path');
+//window.leafletbeautifymarker = require('leaflet.beautifymarker');
+//window.pulseicon = require('@ansur/leaflet-pulse-icon');
+
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

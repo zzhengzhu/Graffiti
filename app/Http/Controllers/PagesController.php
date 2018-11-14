@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //get posts from model
 use App\Post;
+//get pinpoints from model
+use App\Pinpoint;
 //get user location
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 //You may access the authenticated user via the Auth facade
@@ -35,6 +37,22 @@ class PagesController extends Controller
         return $posts;
     }
 
+    public function loadpinpoints(Request $request) {
+        //->with('error', 'Cannot Access Location Service');
+        $lat = $request->input('lat');
+        $lng = $request->input('lng');
+        $point =new Point($lat, $lng);
+        
+        //$posts = Pinpoint::distanceSphere('location', $point, 'radius')->get();
+        
+        $posts = Pinpoint::whereRaw("st_distance_sphere(location, ST_GeomFromText(?)) <= radius", [
+            $point->toWkt(),
+        ])->get();
+        //$posts = DB::select('select * from users where active = ?', [1]);
+        
+        return $posts;
+    }
+
     public function upvote(Request $request) {
         //change user, change posts
         //owned post vs. other's post 
@@ -49,7 +67,7 @@ class PagesController extends Controller
                 return ['redirect'=> url('/index')];
             } else {
                 $user->energy -= 10;
-                $user->exp += 10;
+                $user->exp += 5;
                 $energy = $user->energy;
                 $exp = $user->exp;
                 $user->save();
