@@ -4,7 +4,7 @@
     <script>
         var urlParams = new URLSearchParams(window.location.search);
         postjson = JSON.parse(urlParams.get('postjson'));
-        console.log(postjson);
+        //console.log(postjson);
     </script>
     <div id="mapframe">
         <div id="hoverbar" class="container">
@@ -179,17 +179,18 @@
             var node = getNode(e.target.id);
             //console.log(node);
             //console.log(nodelist);
-            if (node.line) {
+            var tonode = getNode(node.toid);
+            if (tonode.marker) {
                 //add line
                 if (node.line.getLatLngs().length == 0) {
                     var pt1 = node.marker.getLatLng();
-                    var pt2 = getNode(node.toid).marker.getLatLng();
+                    var pt2 = tonode.marker.getLatLng();
                     node.line.setLatLngs([pt1,pt2]);
                     node.line.options.delay = Math.min(150 + pt1.distanceTo(pt2)/2, 900);
                 }
                 node.line.addTo(mymap);
                 //add to_node
-                getNode(node.toid).marker.openPopup();
+                tonode.marker.openPopup();
             }
             //add other nodes
             for(let id of node.fromid) {
@@ -199,11 +200,12 @@
         }
         function chainClose(e) {
             var node = getNode(e.target.id);
-            if (node.line) {
+            var tonode = getNode(node.toid);
+            if (tonode.marker) {
                 //close line
                 if (node.line.getLatLngs().length == 0) {
                     var pt1 = node.marker.getLatLng();
-                    var pt2 = getNode(node.toid).marker.getLatLng();
+                    var pt2 = tonode.marker.getLatLng();
                     node.line.setLatLngs([pt1,pt2]);
                     node.line.options.delay = Math.min(150 + pt1.distanceTo(pt2)/2, 900);
                 }
@@ -214,7 +216,7 @@
         }
         function clickMarker(e) {
             var marker = e.target;
-            console.log(marker);
+            //console.log(marker);
             proxyhighlight.setLatLng(marker.getLatLng());
             document.getElementById("marker_id").value = marker.id;
             document.getElementById("selectnode").classList.remove('d-none');
@@ -298,7 +300,7 @@
 
             //initialize post markers
             $.post("/pages/loadposts",{lat:lat, lng:lng},function(markers){
-                //console.log(markers);
+                console.log(markers);
                 $.each(markers,function(i,val){
                     var m_location = L.latLng(val.location.coordinates[1], val.location.coordinates[0]);
                     var m_username ="<p class='my-0 text-primary font-weight-bold'>" + val.user_name + "</p>";
@@ -355,7 +357,7 @@
             $.post("/pages/loadpinpoints",{lat:lat, lng:lng},function(markers){
                 console.log(markers);
                 $.each(markers,function(i,val){
-                    console.log(val);
+                    //console.log(val);
                     var m_location = L.latLng(val.location.coordinates[1], val.location.coordinates[0]);
                     var m_username ="<p class='my-0 text-primary font-weight-bold'>" + val.user_name + "</p>";
                     //var m_radius = "<p class='my-0 text-success font-weight-bold'>Radius: " + val.radius + "</p>";

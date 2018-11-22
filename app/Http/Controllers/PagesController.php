@@ -30,11 +30,70 @@ class PagesController extends Controller
         $lat = $request->input('lat');
         $lng = $request->input('lng');
         $point =new Point($lat, $lng);
+
+
+        function searchpo($post, &$extrasid, &$ppids) {
+            if (is_null($post->pointto_id)) {
+                $extrasid[] = $post->id;
+            } else {
+                $pointtoid = $post->pointto_id;
+                if (strpos($pointtoid,'pp') !== FALSE) {
+                    $ppids[] = str_replace("pp","",$pointtoid);
+                } else if (strpos($pointtoid,'po') !== FALSE) {
+                    $nextid = str_replace("po","",$pointtoid);
+                    //may push the post's id to a list here
+                    $nextpost = Post::find($nextid);
+                    searchpo($nextpost, $extrasid, $ppids);
+                }
+            }
+        }
         
-        $posts = Post::distanceSphere('location', $point, 'radius')->get();
+        $posts = Post::whereRaw("st_distance_sphere(location, ST_GeomFromText(?)) <= radius", [
+            $point->toWkt(),
+        ])->get();
+        $pinpoints = Pinpoint::whereRaw("st_distance_sphere(location, ST_GeomFromText(?)) <= radius", [
+            $point->toWkt(),
+        ])->get();
+        $extrasid = array();
+        $ppids = array();
+        foreach($pinpoints as $pinpoint) {
+            $ppids[] = $pinpoint->id;
+        }
+        foreach ($posts as $post) {
+            searchpo($post, $extrasid, $ppids);
+        }
+        
+        $ppids = array_unique($ppids);
+        $allposts = Post::all();
+        
+        foreach ($ppids as $ppid) {
+            $ppid = 'pp' . $ppid;
+            foreach ($allposts as $post) {
+                if ($ppid == $post->pointto_id) {
+                    $extrasid[] = $post->id;
+                }
+            }
+        }
+        
+        //$extrasid = array_unique($extrasid); //not necessary    
+
+        $queue = new \Ds\Queue($extrasid);
+      
+        while (!$queue->isEmpty()) {
+            $popid = 'po'. $queue->pop();
+            foreach ($allposts as $post) {
+                if ($popid == $post->pointto_id) {
+                    $extrasid[] = $post->id;
+                    $queue->push($post->id);
+                }
+            }
+        }
+        
+        $all = Post::whereIn('id', $extrasid)->get();
 
         //$array = json_decode(json_encode($posts));
-        return $posts;
+        
+        return $all;
     }
 
     public function loadpinpoints(Request $request) {
@@ -45,12 +104,36 @@ class PagesController extends Controller
         
         //$posts = Pinpoint::distanceSphere('location', $point, 'radius')->get();
         
-        $posts = Pinpoint::whereRaw("st_distance_sphere(location, ST_GeomFromText(?)) <= radius", [
+        $pinpoints = Pinpoint::whereRaw("st_distance_sphere(location, ST_GeomFromText(?)) <= radius", [
+            $point->toWkt(),
+        ]);
+        $posts = Post::whereRaw("st_distance_sphere(location, ST_GeomFromText(?)) <= radius", [
             $point->toWkt(),
         ])->get();
-        //$posts = DB::select('select * from users where active = ?', [1]);
-        
-        return $posts;
+
+        function searchpp($post, &$extrasid) {
+            $pointtoid = $post->pointto_id;
+            if (strpos($pointtoid,'pp') !== FALSE) {
+                $extrasid[] = str_replace("pp","",$pointtoid);
+            } else if (strpos($pointtoid,'po') !== FALSE) {
+                $nextid = str_replace("po","",$pointtoid);
+                //may push the post's id to a list here
+                $nextpost = Post::find($nextid);
+                searchpp($nextpost, $extrasid);
+            }
+        }
+
+        $extrasid = array();
+        foreach ($posts as $post) {
+            searchpp($post, $extrasid);
+        }
+
+        $all = Pinpoint::whereIn('id', $extrasid)
+            ->union($pinpoints)
+            ->distinct()
+            ->get();
+
+        return $all;
     }
 
     public function upvote(Request $request) {
