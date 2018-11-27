@@ -49,9 +49,9 @@ class PinpointController extends Controller
         $validatedData = $request->validate([
             'lat' => 'required',
             'lng' => 'required',
-            'radius' => 'required',
+            'radius' => 'required|integer|between:1,10000',
             'content' => 'required_without:link',
-            'link' => 'required_without:content',
+            'link' => 'nullable|active_url',
         ]);
         $user = User::find(Auth::id());
         if ($user->energy < 50) {

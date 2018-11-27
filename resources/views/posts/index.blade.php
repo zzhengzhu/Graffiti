@@ -9,7 +9,7 @@
                     <div class="row">
                         <p class="m-0">{{$post->content}}</p>
                         <img class="m-0 rounded mx-auto d-block img-responsive" 
-                        style="max-width: 300px; height: auto" src="{{$post->link}}"></img>
+                         src="{{$post->link}}"></img>
                     </div>
                     
                     <div class="row">
@@ -32,10 +32,10 @@
         @if(count($pinpoints) > 0)
             @foreach ($pinpoints as $pinpoint)
                 <div class="well mb-2">
-                    <div class="row">
+                    <div class="row" style="max-width: 300px; height: auto" >
                         <p class="m-0">{{$pinpoint->content}}</p>
                         <img class="m-0 rounded mx-auto d-block img-responsive" 
-                        style="max-width: 300px; height: auto" src="{{$pinpoint->link}}"></img>
+                        src="{{$pinpoint->link}}"></img>
                     </div>
                     
                     <div class="row">

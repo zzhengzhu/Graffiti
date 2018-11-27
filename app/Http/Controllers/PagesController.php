@@ -145,6 +145,7 @@ class PagesController extends Controller
         $user = User::find(Auth::id());
         $energy = 0;
         $exp = 0;
+        $radius = 0;
         if(Auth::id() == $post->user_id) {
             if ($user->energy < 10) {
                 return ['redirect'=> url('/index')];
@@ -157,6 +158,7 @@ class PagesController extends Controller
 
                 $post->radius += 316/pow($post->radius, 0.25);
                 $post->radius = intval($post->radius);
+                $radius = $post->radius;
                 $post->save();
             }
         } else {
@@ -171,10 +173,11 @@ class PagesController extends Controller
 
             $post->radius += 316/pow($post->radius, 0.25);
             $post->radius = intval($post->radius);
+            $radius = $post->radius;
             $post->save();
         }
 
-        $data = array($energy, $exp);
+        $data = array($energy, $exp, $radius);
         //$array = json_decode(json_encode($posts));
         return $data;
     }

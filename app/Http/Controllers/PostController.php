@@ -53,7 +53,7 @@ class PostController extends Controller
             'lat' => 'required',
             'lng' => 'required',
             'content' => 'required_without:link',
-            'link' => 'required_without:content',
+            'link' => 'nullable|active_url',
         ]);
         $user = User::find(Auth::id());
         if ($user->energy < 100) {

@@ -91,7 +91,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Radius:</label>
-                        <input type="text" class="form-control" name="radius" placeholder="The radius of Pinpoint in meters">
+                        <input type="number" class="form-control" name="radius" placeholder="The radius of Pinpoint in meters (max:10000)" min="1" max="10000">
                     </div>
                     <button type="submit" class="btn btn-dark col-sm-12">Submit</button>
                 </form>
@@ -101,7 +101,6 @@
     </div>
 
     <script>
-        geoLocationInit();
         //initialize location service
         function geoLocationInit() {
             if (navigator.geolocation) {
@@ -136,12 +135,13 @@
                     $("#energy").css({"width": data[0]/10 + "%"});
                     $("#exp").html("LEVEL "+ Math.floor(data[1]/100));
                     $("#exp").css({"width": data[1] % 100 + "%"});
+                    console.log(id);
+                    console.log(data[2]);
                 }  
                 
             });
         }
-        //make it global?
-        var nodelist = [];
+        
         
         function Node(id) {
             this.id = id;
@@ -149,6 +149,7 @@
             this.toid = null;
             this.marker = null;
             this.line = null;
+            this.circle = null;
             this.addfromid = function(id) {
                 this.fromid.push(id);
                 return null;
@@ -177,6 +178,7 @@
         }
         function chainOpen(e) {
             var node = getNode(e.target.id);
+            node.circle.addTo(mymap);
             //console.log(node);
             //console.log(nodelist);
             var tonode = getNode(node.toid);
@@ -201,6 +203,7 @@
         function chainClose(e) {
             var node = getNode(e.target.id);
             var tonode = getNode(node.toid);
+            node.circle.remove(mymap);
             if (tonode.marker) {
                 //close line
                 if (node.line.getLatLngs().length == 0) {
@@ -228,8 +231,15 @@
             document.getElementById("selectnode").classList.add('d-none');
         }
 
+        $(document).ready(function() {
+            geoLocationInit();
+            //make it global
+            nodelist = [];
+            //console.log( "document ready!" );
+        });
 
-        $(document).ready(function(){
+        $(window).on("load", function(){
+            //console.log( "window ready!" );
             //instruct jQuery to automatically add the token to all request headers
             $.ajaxSetup({
                 headers: {
@@ -300,7 +310,7 @@
 
             //initialize post markers
             $.post("/pages/loadposts",{lat:lat, lng:lng},function(markers){
-                console.log(markers);
+                //console.log(markers);
                 $.each(markers,function(i,val){
                     var m_location = L.latLng(val.location.coordinates[1], val.location.coordinates[0]);
                     var m_username ="<p class='my-0 text-primary font-weight-bold'>" + val.user_name + "</p>";
@@ -331,6 +341,14 @@
                         getNode(val.pointto_id).addfromid(m_id);
                         node.line = new L.Polyline.AntPath([], {delay: 700});
                     } 
+                    
+                    node.circle = new L.circle(m_location, {
+                        color: 'opaque',
+                        fillColor: 'green',
+                        fillOpacity: 0.2,
+                        radius: val.radius
+                    });
+
                     var icon = L.BeautifyIcon.icon({
                         icon: 'location-arrow',
                         iconShape: 'marker',
@@ -355,7 +373,7 @@
 
             //initialize pinpoint markers
             $.post("/pages/loadpinpoints",{lat:lat, lng:lng},function(markers){
-                console.log(markers);
+                //console.log(markers);
                 $.each(markers,function(i,val){
                     //console.log(val);
                     var m_location = L.latLng(val.location.coordinates[1], val.location.coordinates[0]);
@@ -379,11 +397,14 @@
                     //retrieve existing node or create a new node
                     var m_id = "pp" + val.id;
                     var node = getNode(m_id);
-                    if (val.pointto_id) {
-                        node.toid = val.pointto_id;
-                        getNode(val.pointto_id).addfromid(m_id);
-                        node.line = new L.Polyline.AntPath([], {delay: 700});
-                    } 
+                    
+                    node.circle = new L.circle(m_location, {
+                        color: 'opaque',
+                        fillColor: 'green',
+                        fillOpacity: 0.2,
+                        radius: val.radius
+                    });
+
                     //var pulsingIcon = L.icon.pulse({iconSize:[20,20],color:'red'});
                     var icon = L.BeautifyIcon.icon({
                         icon: 'map-pin',
@@ -404,7 +425,7 @@
                     //node.marker.openPopup();
                 });
             });
-        })
+        });
 
     </script>
 @endsection
