@@ -113,6 +113,8 @@
             //update lat and lng in modal
             document.getElementById("modal_lat").value = lat;
             document.getElementById("modal_lng").value = lng;
+
+            gameStart();
         }
         //failed to get position
         function fail() {
@@ -232,13 +234,11 @@
         var lat = null;
         var lng = null;
         var latlng = null;
-
+        geoLocationInit();
         //$(document).ready();
-        document.addEventListener("DOMContentLoaded", geoLocationInit());
+       
 
-        window.addEventListener("load", function(){
-            console.log( "window ready!" );
-
+        function gameStart(){
             var urlParams = new URLSearchParams(window.location.search);
             var postjson = JSON.parse(urlParams.get('postjson'));
             //console.log(postjson);
@@ -428,7 +428,7 @@
                     //node.marker.openPopup();
                 });
             });
-        });
+        };
 
     </script>
 @endsection
