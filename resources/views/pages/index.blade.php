@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <script>
-        var urlParams = new URLSearchParams(window.location.search);
-        postjson = JSON.parse(urlParams.get('postjson'));
-        //console.log(postjson);
-    </script>
     <div id="mapframe">
         <div id="hoverbar" class="container">
             <div class="row col-sm-12">
@@ -230,17 +225,24 @@
             document.getElementById("marker_id").value = null;
             document.getElementById("selectnode").classList.add('d-none');
         }
+        //make it global
+        var nodelist = [];
+        var mymap = null;
+        var proxyhighlight = null;
+        var lat = null;
+        var lng = null;
+        var latlng = null;
 
         //$(document).ready();
-        document.addEventListener("DOMContentLoaded", function() {
-            geoLocationInit();
-            //make it global
-            nodelist = [];
-            console.log( "DOM Content Loaded!" );
-        })
+        document.addEventListener("DOMContentLoaded", geoLocationInit());
 
-        $(window).on("load", function(){
+        window.addEventListener("load", function(){
             console.log( "window ready!" );
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var postjson = JSON.parse(urlParams.get('postjson'));
+            //console.log(postjson);
+
             //instruct jQuery to automatically add the token to all request headers
             $.ajaxSetup({
                 headers: {
