@@ -231,15 +231,16 @@
             document.getElementById("selectnode").classList.add('d-none');
         }
 
-        $(document).ready(function() {
+        //$(document).ready();
+        document.addEventListener("DOMContentLoaded", function() {
             geoLocationInit();
             //make it global
             nodelist = [];
-            //console.log( "document ready!" );
-        });
+            console.log( "DOM Content Loaded!" );
+        })
 
         $(window).on("load", function(){
-            //console.log( "window ready!" );
+            console.log( "window ready!" );
             //instruct jQuery to automatically add the token to all request headers
             $.ajaxSetup({
                 headers: {
