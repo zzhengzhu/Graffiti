@@ -9,11 +9,15 @@
     
                     <div class="card-body">
                         This is a beta test version of the amazing LBS game Graffiti. <br />
-                        For report bugs, you can either make a post to point to Admin Pinpoint
-                        or email: zuoperation@gmail.com <br />
+                        In this game, you can create posts on a map, 
+                        pin a message and upvote your favorite posts to let more people see it. <br />
+                        The game intro will show up after you sign in.<br /> 
     
                         Feel free to explore the website around. Good Luck and Have Fun! <br />
-                        Click "Login" or "Register" to assess your game account<br />
+                        <br />
+                        Click "Login" or "Register" to assess your game account<br /> 
+                        USE FRESH, NEVER-USED PASSWORD FOR THE GAME ACCOUNT<br />
+                        IT IS HIGH RISK TO USE THE SAME PASSWORD AS THE PASSWORD USED IN YOUR OTHER ACCOUNTS!<br />
                     </div>
                 </div>
             </div>
