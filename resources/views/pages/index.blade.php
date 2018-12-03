@@ -132,8 +132,8 @@
                     $("#energy").css({"width": data[0]/10 + "%"});
                     $("#exp").html("LEVEL "+ Math.floor(data[1]/100));
                     $("#exp").css({"width": data[1] % 100 + "%"});
-                    console.log(id);
-                    console.log(data[2]);
+                    var node = getNode("po"+ id);
+                    node.circle.setRadius(data[2]);
                 }  
                 
             });
