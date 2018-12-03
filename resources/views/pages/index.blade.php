@@ -2,14 +2,14 @@
 
 @section('content')
     <div id="mapframe">
-        <div id="hoverbar" class="container">
-            <div class="row col-sm-12">
+        <div id="hoverbar" class="container pt-2 pl-0 pr-0">
+            <div class="row col-sm-12 p-0 m-0">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#sendPost">
+                <button type="button" class="btn btn-dark ml-2" data-toggle="modal" data-target="#sendPost">
                     Post
                 </button>
-                <button type="button" class="btn btn-dark ml-2" data-toggle="modal" data-target="#pinPoint">
-                    Pinpoint
+                <button type="button" class="btn btn-dark ml-1" data-toggle="modal" data-target="#pinPoint">
+                    Pin
                 </button>
                 <div class="m-2 progress" style="width: 30%">
                     <div id="energy" class="progress-bar progress-bar-striped progress-bar-animated" 
@@ -250,7 +250,7 @@
                 }
             });
 
-            mymap = L.map('mapid', {wheelPxPerZoomLevel: 120});//.locate({setView: true, maxZoom: 17});
+            mymap = L.map('mapid', {zoomControl: false, wheelPxPerZoomLevel: 120});//.locate({setView: true, maxZoom: 17});
             if (postjson) {
                 mymap.setView([postjson.coordinates[1], postjson.coordinates[0]], 17);
             } else {
@@ -296,11 +296,16 @@
             }
             mymap.on('click', onMapClick);
             
-            var smicon = L.BeautifyIcon.icon({
-                icon: 'location-arrow',
-                iconShape: 'circle-dot',
-                borderColor: 'transparent',
-                popupAnchor: [0, 0]
+            var adminicon = L.icon({
+                iconUrl: 'images/admintoken.png',
+                iconSize:     [40, 40], 
+                iconAnchor:   [18, 22], 
+                popupAnchor:  [0, -18]
+            });
+            var smicon = L.icon({
+                iconUrl: 'images/none.png',
+                iconSize:     [1, 1], 
+                iconAnchor:   [1, 1], 
             });
             proxyhighlight =new L.marker([0,0], {highlight: "permanent", icon: smicon}).addTo(mymap);
 

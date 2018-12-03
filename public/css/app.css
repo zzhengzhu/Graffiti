@@ -11134,8 +11134,8 @@ body,
 
 #hoverbar {
   position: absolute;
-  left: 5%;
-  top: 2%;
+  left: 0%;
+  top: 0%;
   z-index: 900;
 }
 
