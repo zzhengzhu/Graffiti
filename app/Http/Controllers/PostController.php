@@ -128,6 +128,9 @@ class PostController extends Controller
         }
 
         if($delpost->user_id == Auth::id()) {
+            $poid = 'po' . $id;
+            //update the related posts
+            Post::where('pointto_id', $poid)->update(['pointto_id' => null]);
             $delpost->delete();
             return redirect(route('posts.index'))->with('success', 'Post Deleted');
         } else {

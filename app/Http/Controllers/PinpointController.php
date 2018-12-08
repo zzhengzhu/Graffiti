@@ -9,6 +9,8 @@ use Grimzy\LaravelMysqlSpatial\Types\Point;
 //You may access the authenticated user via the Auth facade
 use Illuminate\Support\Facades\Auth;
 use App\User;
+//for updates when deleting
+use App\Post;
 
 
 class PinpointController extends Controller
@@ -122,6 +124,9 @@ class PinpointController extends Controller
         }
 
         if($delpinpoint->user_id == Auth::id()) {
+            $ppid = 'pp' . $id;
+            //update the related posts
+            Post::where('pointto_id', $ppid)->update(['pointto_id' => null]);
             $delpinpoint->delete();
             return redirect(route('posts.index'))->with('success', 'Pinpoint Deleted');
         } else {
