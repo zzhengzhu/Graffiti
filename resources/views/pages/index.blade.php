@@ -294,7 +294,7 @@
             var pulsingIcon = L.icon.pulse({iconSize:[10,10],color:'blue'});
             var mainmarker =new L.marker([0,0], {icon: pulsingIcon}).bindPopup().addTo(mymap);
             function onMapClick(e) {
-                var clicklatlng = wrap(e.latlng);
+                var clicklatlng = mymap.wrapLatLng(e.latlng);
                 mainmarker
                     .setLatLng(clicklatlng)
                     .setPopupContent("You clicked the map at " + clicklatlng.toString()
