@@ -250,7 +250,15 @@
                 }
             });
 
-            mymap = L.map('mapid', {zoomControl: false, wheelPxPerZoomLevel: 120});//.locate({setView: true, maxZoom: 17});
+            mymap = L.map('mapid', {
+                zoomControl: false, 
+                wheelPxPerZoomLevel: 120, 
+                zoomSnap: 0.1, 
+                worldCopyJump: true,
+                minZoom: 1.5,
+                maxBounds: L.latLngBounds(L.latLng(-85, -360), L.latLng(85, 360))
+                
+                });//.locate({setView: true, maxZoom: 17});
             if (postjson) {
                 mymap.setView([postjson.coordinates[1], postjson.coordinates[0]], 17);
             } else {
@@ -286,13 +294,14 @@
             var pulsingIcon = L.icon.pulse({iconSize:[10,10],color:'blue'});
             var mainmarker =new L.marker([0,0], {icon: pulsingIcon}).bindPopup().addTo(mymap);
             function onMapClick(e) {
+                var clicklatlng = wrap(e.latlng);
                 mainmarker
-                    .setLatLng(e.latlng)
-                    .setPopupContent("You clicked the map at " + e.latlng.toString()
-                        + "/ Distance:" + e.latlng.distanceTo(mylatlng));
+                    .setLatLng(clicklatlng)
+                    .setPopupContent("You clicked the map at " + clicklatlng.toString()
+                        + "/ Distance:" + clicklatlng.distanceTo(mylatlng));
                 //update lat and lng in modal
-                document.getElementById("pp_lat").value = e.latlng.lat;
-                document.getElementById("pp_lng").value = e.latlng.lng;
+                document.getElementById("pp_lat").value = clicklatlng.lat;
+                document.getElementById("pp_lng").value = clicklatlng.lng;
             }
             mymap.on('click', onMapClick);
             
