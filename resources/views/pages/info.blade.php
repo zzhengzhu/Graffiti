@@ -12,8 +12,7 @@
                     In this game, you can create posts on a map, 
                     pin a message and upvote your favorite posts to let more people see it. <br />
                     The game intro will show up after you sign in.<br /> 
-
-                    Feel free to explore the website around. Good Luck and Have Fun! <br />
+                    <a href="/tutorial">Go to Tutorial for more information</a>
                     <br />
                     Click "Login" or "Register" to access your game account<br /> 
                     USE FRESH, NEVER-USED PASSWORD FOR THE GAME ACCOUNT<br />

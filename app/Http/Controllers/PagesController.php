@@ -167,7 +167,7 @@ class PagesController extends Controller
             }
         } else {
             $user->energy += 10;
-            $user->exp += 2;
+            $user->exp += 0;
             if($user->energy > 1000) {
                 $user->energy = 1000;
             }

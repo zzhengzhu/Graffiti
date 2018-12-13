@@ -28,9 +28,12 @@
                     if they are linked with any in-sight Posts/Pinpoints, 
                     they will also be revealed in the map. <br/>
                     Upvote other's posts to gain energy <br/>
-
+                    <a href="/tutorial">Go to Tutorial for more information</a>
+                    <br/>
                     Feel free to explore the website around. Good Luck and Have Fun! <br />
-                    Click "Home" in the navbar to visit game interface <br />
+                    Click "Home" in the navbar to go to the game interface.<br />
+                    <a class="btn btn-dark" href="/index">Play!</a>
+                    <br />
                 </div>
             </div>
         </div>

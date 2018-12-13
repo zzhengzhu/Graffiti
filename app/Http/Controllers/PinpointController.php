@@ -60,7 +60,7 @@ class PinpointController extends Controller
             return redirect(route('pages.index'))->with('error', 'Not Enough Energy');
         } else {
             $user->energy -= 50;
-            $user->exp += 50;
+            $user->exp += 25;
             $user->save();
 
             $point = new Point($request->input('lat'), $request->input('lng'));
