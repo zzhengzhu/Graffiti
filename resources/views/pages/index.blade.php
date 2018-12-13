@@ -99,7 +99,7 @@
         //initialize location service
         function geoLocationInit() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(success, fail, {timeout:1000});
+                navigator.geolocation.getCurrentPosition(success, fail, {timeout:5000});
             } else {
                 alert("Browser not supported, or Https protocol needed. Try type https:// before the url");
             }
