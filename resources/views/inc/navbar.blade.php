@@ -19,6 +19,9 @@
               <li class="nav-item">
                   <a class="nav-link" href="/updates">Updates <span class="sr-only">(current)</span></a>
               </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/tutorial">Tutorial <span class="sr-only">(current)</span></a>
+              </li>
           </ul>
 
           <!-- Right Side Of Navbar -->

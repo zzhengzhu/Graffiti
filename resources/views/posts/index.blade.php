@@ -5,11 +5,13 @@
         <h1 class="pt-2">My Posts</h1>
         @if(count($posts) > 0)
             @foreach ($posts as $post)
-                <div class="well mb-2">
-                    <div class="row">
+                <div class="container mb-2">
+                    <div class="row" style="width:80%;height:80%;">
                         <p class="m-0">{{$post->content}}</p>
-                        <img class="m-0 rounded mx-auto d-block img-responsive" 
+                        @if($post->link)
+                        <img style="width:100%;height:100%" 
                          src="{{$post->link}}"></img>
+                        @endif
                     </div>
                     
                     <div class="row">
@@ -31,11 +33,13 @@
         <h1 class="pt-2">My Pinpoints</h1>
         @if(count($pinpoints) > 0)
             @foreach ($pinpoints as $pinpoint)
-                <div class="well mb-2">
-                    <div class="row" style="max-width: 300px; height: auto" >
+                <div class="container mb-2">
+                    <div class="row" style="width:80%;height:80%">
                         <p class="m-0">{{$pinpoint->content}}</p>
-                        <img class="m-0 rounded mx-auto d-block img-responsive" 
+                        @if($pinpoint->link)
+                        <img style="width:100%;height:100%" 
                         src="{{$pinpoint->link}}"></img>
+                        @endif
                     </div>
                     
                     <div class="row">

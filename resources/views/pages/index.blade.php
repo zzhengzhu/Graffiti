@@ -50,7 +50,7 @@
                         <textarea class="form-control" name="content" rows="10"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Link:</label>
+                        <label class="col-form-label">Image url:</label>
                         <input type="text" class="form-control" name="link" placeholder="Optional">
                     </div>
                     <button type="submit" class="btn btn-dark col-sm-12">Submit</button>
@@ -81,7 +81,7 @@
                         <textarea class="form-control" name="content" rows="7"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Link:</label>
+                        <label class="col-form-label">Image url:</label>
                         <input type="text" class="form-control" name="link" placeholder="Optional">
                     </div>
                     <div class="form-group">

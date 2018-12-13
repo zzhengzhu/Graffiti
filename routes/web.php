@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::get('/index', 'PagesController@index')->name('pages.index')->middleware('verified');
 Route::get('/info', 'PagesController@info')->name('pages.info');
 Route::redirect('/', '/info', 301);
+Route::get('/tutorial', 'PagesController@tutorial')->name('pages.tutorial');
 //load post markers
 Route::post('/pages/loadposts', 'PagesController@loadposts')->name('pages.loadposts');
 //load pinpoint markers
