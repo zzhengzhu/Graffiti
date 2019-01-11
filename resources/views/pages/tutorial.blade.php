@@ -79,8 +79,6 @@
                         </div>
                     </div>
                 </div>
-                images/admintoken.png
-                Sample url: https://i.imgur.com/1XgBtTH.jpg
             </div>
         </div>
     </div>
