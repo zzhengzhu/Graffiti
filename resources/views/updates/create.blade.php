@@ -10,8 +10,20 @@
         </div>
         <div class="form-group">
             <label>Contents</label>
-            <textarea class="form-control" name="content" rows="20"></textarea>
+            <textarea class="form-control" name="content" rows="20" id="ckeditor">
+                &lt;p&gt;Here goes the initial content of the editor.&lt;/p&gt;
+            </textarea>
         </div>
         <button type="submit" class="btn btn-dark">Submit</button>
     </form>
+    <script>
+        ClassicEditor
+        .create( document.querySelector( '#ckeditor' ) )
+        .then( editor => {
+            console.log( editor );
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+    </script>
 @endsection

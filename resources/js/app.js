@@ -14,3 +14,15 @@ require('./bootstrap');
  */
 
 require('./components/Example');
+
+//add leaflet
+require('leaflet');
+//IconDefault.options.imagePath = 'images/vendor/leaflet/dist/';
+
+//add leaflet plugins
+require('leaflet-rotatedmarker');
+require('leaflet-polylinedecorator');
+require('leaflet.marker.highlight');
+require('leaflet-ant-path');
+//window.leafletbeautifymarker = require('leaflet.beautifymarker');
+//window.pulseicon = require('@ansur/leaflet-pulse-icon');
