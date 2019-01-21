@@ -11,6 +11,7 @@ class UpdateController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('verified')->except('index');
         $this->middleware('root')->except('index');
     }
     /**

@@ -29,6 +29,10 @@ class PagesController extends Controller
         return view('pages.tutorial');
     }
 
+    public function credits() {
+        return view('pages.credits');
+    }
+
     public function loadposts(Request $request) {
         //->with('error', 'Cannot Access Location Service');
         $lat = $request->input('lat');

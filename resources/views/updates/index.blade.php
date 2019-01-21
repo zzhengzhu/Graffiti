@@ -11,7 +11,7 @@
             </div>
             <div class="collapse" id="update{{$log->id}}">
                 <div class="card card-body">
-                    {{$log->content}}
+                    {!!$log->content!!}
                 </div>
             </div>
         </div>

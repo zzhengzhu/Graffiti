@@ -15,7 +15,7 @@
                     @endif
 
                     You are logged in! <br />
-                    For report bugs, you can either make a post to point to any admin-created posts 
+                    For reporting bugs, you can either make a post to point to any admin-created posts 
                     or email: zuoperation@gmail.com <br />
                     <br/>
                     The Post button will let you create a post based on your location<br/>

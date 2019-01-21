@@ -19,12 +19,13 @@ Route::get('/index', 'PagesController@index')->name('pages.index')->middleware('
 Route::get('/info', 'PagesController@info')->name('pages.info');
 Route::redirect('/', '/info', 301);
 Route::get('/tutorial', 'PagesController@tutorial')->name('pages.tutorial');
+Route::get('/credits', 'PagesController@credits')->name('pages.credits');
 //load post markers
-Route::post('/pages/loadposts', 'PagesController@loadposts')->name('pages.loadposts');
+Route::post('/pages/loadposts', 'PagesController@loadposts')->name('pages.loadposts')->middleware('verified');
 //load pinpoint markers
-Route::post('/pages/loadpinpoints', 'PagesController@loadpinpoints')->name('pages.loadpinpoints');
+Route::post('/pages/loadpinpoints', 'PagesController@loadpinpoints')->name('pages.loadpinpoints')->middleware('verified');
 //upvote manipulation
-Route::post('/pages/upvote', 'PagesController@upvote')->name('pages.upvote');
+Route::post('/pages/upvote', 'PagesController@upvote')->name('pages.upvote')->middleware('verified');
 
 Route::resource('updates', 'UpdateController');
 
@@ -34,9 +35,12 @@ Route::resource('posts', 'PostController')->except([
 Route::resource('pinpoints', 'PinpointController')->except([
     'create', 'show', 'edit', 'update', 
 ]);
+
+/*
 Route::resource('detectors', 'DetectorController')->except([
     'create', 'show', 'edit', 'update', 
 ]);
+*/
 
 //verify is true
 Auth::routes(['verify' => true]);
