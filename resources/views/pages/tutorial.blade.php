@@ -60,8 +60,8 @@
                         <div class="col-sm">
                             <p class="m-0 font-weight-bold">Linking:</p>
                             <p class="m-1">1: Click on a Post or Pinpoint on the map, 
-                                you will notice a blue pulsing arua around the Post or Pinpoint that you clicked.
-                                The blue arua indicates that the post or pinpoint has been selected. 
+                                you will notice a blue pulsing aura around the Post or Pinpoint that you clicked.
+                                The blue aura indicates that the post or pinpoint has been selected. 
                             <p class="m-1">2: It is the same step as creating a Post. 
                                 However, you will find a notice in the pop out dialog, 
                                 which indicates that a post or a pinpoint is selected. 
