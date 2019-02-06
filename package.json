@@ -28,6 +28,7 @@
     "dependencies": {
         "@ansur/leaflet-pulse-icon": "^0.1.1",
         "@ckeditor/ckeditor5-build-classic": "^11.2.0",
+        "fontawesome-iconpicker": "^3.2.0",
         "leaflet": "^1.4.0",
         "leaflet-ant-path": "^1.2.1",
         "leaflet-polylinedecorator": "^1.6.0",

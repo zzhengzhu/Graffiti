@@ -35,7 +35,11 @@ Route::resource('posts', 'PostController')->except([
 Route::resource('pinpoints', 'PinpointController')->except([
     'create', 'show', 'edit', 'update', 
 ]);
-
+Route::resource('stations', 'StationController')->except([
+    'create', 'show', 'edit', 'update', 
+]);
+//load station markers
+Route::post('/stations/load', 'StationController@load')->name('stations.load');
 /*
 Route::resource('detectors', 'DetectorController')->except([
     'create', 'show', 'edit', 'update', 

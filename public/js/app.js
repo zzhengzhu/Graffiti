@@ -74518,9 +74518,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  */
 
 
-__webpack_require__(/*! ./components/Example */ "./resources/js/components/Example.js"); //ckeditor
-//import ClassicEditor from '@ckeditor/ckeditor5-build-classic/build/ckeditor';
-//add leaflet
+__webpack_require__(/*! ./components/Example */ "./resources/js/components/Example.js"); //add leaflet
 
 
 __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js"); //IconDefault.options.imagePath = 'images/vendor/leaflet/dist/';
@@ -74533,7 +74531,8 @@ __webpack_require__(/*! leaflet-polylinedecorator */ "./node_modules/leaflet-pol
 
 __webpack_require__(/*! leaflet.marker.highlight */ "./node_modules/leaflet.marker.highlight/index.js");
 
-__webpack_require__(/*! leaflet-ant-path */ "./node_modules/leaflet-ant-path/dist/leaflet-ant-path.js"); //window.leafletbeautifymarker = require('leaflet.beautifymarker');
+__webpack_require__(/*! leaflet-ant-path */ "./node_modules/leaflet-ant-path/dist/leaflet-ant-path.js"); //require('fontawesome-iconpicker');
+//window.leafletbeautifymarker = require('leaflet.beautifymarker');
 //window.pulseicon = require('@ansur/leaflet-pulse-icon');
 
 /***/ }),

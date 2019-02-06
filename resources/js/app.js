@@ -24,5 +24,6 @@ require('leaflet-rotatedmarker');
 require('leaflet-polylinedecorator');
 require('leaflet.marker.highlight');
 require('leaflet-ant-path');
+//require('fontawesome-iconpicker');
 //window.leafletbeautifymarker = require('leaflet.beautifymarker');
 //window.pulseicon = require('@ansur/leaflet-pulse-icon');

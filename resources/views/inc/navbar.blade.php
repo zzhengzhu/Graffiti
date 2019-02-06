@@ -25,6 +25,9 @@
               <li class="nav-item">
                   <a class="nav-link" href="/credits">Credits <span class="sr-only">(current)</span></a>
               </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{route('stations.index')}}">Station <span class="sr-only">(current)</span></a>
+              </li>
           </ul>
 
           <!-- Right Side Of Navbar -->

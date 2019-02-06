@@ -32,7 +32,9 @@
     <!-- pulse marker -->
     <link href="{{ asset('css/L.Icon.Pulse.css') }}" rel="stylesheet">
     <script src="{{ asset('js/L.Icon.Pulse.js') }}"></script>
-
+    <!-- icon picker -->
+    <link href="{{ asset('css/fontawesome-iconpicker.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/fontawesome-iconpicker.js') }}"></script>
 </head>
 <body>
     <div id="app">
