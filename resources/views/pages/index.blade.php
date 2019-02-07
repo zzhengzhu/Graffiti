@@ -375,7 +375,7 @@
                     });
                     node.marker = new L.Marker(m_location, {highlight: 'temporary', icon: icon});
                     node.marker.id = m_id;
-                    node.marker.bindPopup(html, {autoClose: false});
+                    node.marker.bindPopup(html, {autoPan: false, autoClose: false});
                     node.marker.on({
                         popupopen: chainOpen,
                         popupclose: chainClose,
@@ -430,7 +430,7 @@
                     });
                     node.marker = new L.Marker(m_location, {highlight: 'temporary', icon: icon});
                     node.marker.id = m_id;
-                    node.marker.bindPopup(html, {autoClose: false});
+                    node.marker.bindPopup(html, {autoPan: false, autoClose: false});
                     node.marker.on({
                         popupopen: chainOpen,
                         popupclose: chainClose,

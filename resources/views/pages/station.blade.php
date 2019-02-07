@@ -232,7 +232,7 @@
                 node.marker = new L.Marker(m_location, {icon: icon});
                 node.marker.id = m_id;
                 node.marker.tag = val.category;
-                node.marker.bindPopup(html, {autoClose: false});
+                node.marker.bindPopup(html, {autoPan: false, autoClose: false});
                 node.marker.on({
                     popupopen: chainOpen,
                     click: clickMarker
