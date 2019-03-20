@@ -11,22 +11,19 @@
           <!-- Left Side Of Navbar -->
           <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                  <a class="nav-link" href="{{route('pages.index')}}">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="{{route('pages.index')}}">COMM <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/posts">My Posts <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="{{route('stations.index')}}">Station <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="/updates">Updates <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/tutorial">Tutorial <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="/tutorial">Get Started <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="/credits">Credits <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{{route('stations.index')}}">Station <span class="sr-only">(current)</span></a>
               </li>
           </ul>
 

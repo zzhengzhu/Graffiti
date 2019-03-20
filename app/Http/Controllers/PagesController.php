@@ -25,8 +25,14 @@ class PagesController extends Controller
         return view('pages.info');
     }
 
-    public function tutorial() {
-        return view('pages.tutorial');
+    public function getstarted() {
+        return view('pages.tutorial0');
+    }
+    public function tutorialcomm() {
+        return view('pages.tutorial1');
+    }
+    public function tutorialstation() {
+        return view('pages.tutorial2');
     }
 
     public function credits() {

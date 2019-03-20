@@ -18,7 +18,9 @@ Route::get('/', function () {
 Route::get('/index', 'PagesController@index')->name('pages.index')->middleware('verified');
 Route::get('/info', 'PagesController@info')->name('pages.info');
 Route::redirect('/', '/info', 301);
-Route::get('/tutorial', 'PagesController@tutorial')->name('pages.tutorial');
+Route::get('/tutorial', 'PagesController@getstarted')->name('pages.tutorial');
+Route::get('/tutorial/comm', 'PagesController@tutorialcomm')->name('pages.tutorialcomm');
+Route::get('/tutorial/station', 'PagesController@tutorialstation')->name('pages.tutorialstation');
 Route::get('/credits', 'PagesController@credits')->name('pages.credits');
 //load post markers
 Route::post('/pages/loadposts', 'PagesController@loadposts')->name('pages.loadposts')->middleware('verified');

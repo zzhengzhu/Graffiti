@@ -11,6 +11,9 @@
                 <button type="button" class="btn btn-dark ml-1" data-toggle="modal" data-target="#pinPoint">
                     Pin
                 </button>
+                <a class="btn btn-dark ml-1" href="/posts" >
+                    My Posts
+                </a>
                 <div class="m-2 progress" style="width: 30%">
                     <div id="energy" class="progress-bar progress-bar-striped progress-bar-animated" 
                     role="progressbar" style="width: 0%"></div>

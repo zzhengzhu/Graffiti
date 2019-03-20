@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <h3 class="card-header">Tutorial</h3>
+                <h3 class="card-header">Tutorial for <b>COMM</b></h3>
                 <div class="container">
                     <div class="row mb-4">
                         <div class="col-sm">
@@ -16,7 +16,7 @@
                                 Creating a Post will consume 100 E and generate 50 EXP. <p>
                         </div>
                         <div class="col-sm">
-                            <img src="images/createpo.jpg" class="img-fluid">
+                            <img src="/images/createpo.jpg" class="img-fluid">
                         </div>
                     </div>
                     <div class="row mb-4">
@@ -32,10 +32,10 @@
                                 the corresponding Post's radius will increase. </p>
                         </div>
                         <div class="col-sm">
-                            <img src="images/pplocation.jpg" class="img-fluid">
+                            <img src="/images/pplocation.jpg" class="img-fluid">
                         </div>
                         <div class="col-sm">
-                            <img src="images/createpp.jpg" class="img-fluid">
+                            <img src="/images/createpp.jpg" class="img-fluid">
                         </div>
                     </div>
                     <div class="row mb-4">
@@ -53,7 +53,7 @@
                                 </p> 
                         </div>
                         <div class="col-sm">
-                            <img src="images/upvote.jpg" class="img-fluid">
+                            <img src="/images/upvote.jpg" class="img-fluid">
                         </div>
                     </div>
                     <div class="row mb-4">
@@ -72,10 +72,10 @@
                                 </p> 
                         </div>
                         <div class="col-sm">
-                            <img src="images/pointto.jpg" class="img-fluid">
+                            <img src="/images/pointto.jpg" class="img-fluid">
                         </div>
                         <div class="col-sm">
-                            <img src="images/cancellink.jpg" class="img-fluid">
+                            <img src="/images/cancellink.jpg" class="img-fluid">
                         </div>
                     </div>
                 </div>
