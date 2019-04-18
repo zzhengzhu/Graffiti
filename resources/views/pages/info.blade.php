@@ -12,7 +12,7 @@
                         for location-based communication, which is the outcome of my Honours Thesis
                         "The Design of a Location-based Neighborhood Game 
                         that Stimulates the Generation of Social Capital". 
-                        The base game is a location-based social media that generates social captial
+                        The base game is a location-based social medium that generates social captial
                          through local online communication. 
                          Some game mechanics are applied to motivate participations using Self-Determination Theory. 
                           The interface was renamed as <b>COMM</b> in a recent update. 
