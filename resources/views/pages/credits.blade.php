@@ -19,6 +19,8 @@
                     <p>Nunito Fonts</p>
                     <p>SIL Open Font License&nbsp;<br>Copyright (c) 2011, Vernon Adams (vern@newtypography.co.uk),
                         with Reserved Font Name Nunito.</p>
+                    <p>Nunito Fonts</p>
+                    <p>Complete License&nbsp;<br>Copyright (c) 2017, Vsevolod Abramov (https://www.behance.net/sevaabr)</p>
                     <p>fontawesome-iconpicker</p>
                     <p>MIT License&nbsp;<br>Copyright (c) 2016 Javi Aguilar</p>
                     <p>&nbsp;</p>

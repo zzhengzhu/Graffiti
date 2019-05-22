@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Tutorial for <b>COMM</b></h5>
                         <p class="card-text">COMM is a location-based communication platform 
-                                integrated with some gamification mechanics. 
+                                integrated with gamification mechanics. 
                                 In COMM, you can create posts on a map, 
                                 pin a message and upvote your favorite posts to let more people see it. 
                         </p>
@@ -22,9 +22,9 @@
                         <h5 class="card-title">Tutorial for <b>Station</b></h5>
                         <p class="card-text">
                             Station is a Volunter Geographic Information platform 
-                            for discovering and sharing "place of interests" in Waterloo Region. 
-                            Users can create "stations" and link locations with similar properties like "places for having fun" and "bubble teas"
-                            together, which simulates the process of creating a "Transit Map". 
+                            for discovering and sharing places of interest in Waterloo Region. 
+                            Users create "stations" and link locations with similar feature like "places for having fun" or "bubble teas"
+                            together, which creates imaginary transit maps. 
                         </p>
                         <p> You do not need an account to use Station</p>
                         <a href="/tutorial/station" class="btn btn-primary">Go to tutorial</a>

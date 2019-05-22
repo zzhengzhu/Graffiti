@@ -8,6 +8,9 @@
                 <button type="button" class="btn btn-dark ml-2" data-toggle="modal" data-target="#sendStation">
                     Post
                 </button>
+                <button id="selectnode2" type="button" class="btn btn-dark ml-2" onclick=geoLocationInit()>
+                    Locate
+                </button>
                 <button id="selectnode2" type="button" class="btn btn-dark ml-2 d-none" onclick=deselect()>Cancel Selection</button>
                 <p id="mytag" class="h2 mb-0 ml-5"></p>
             </div>
@@ -70,6 +73,26 @@
             }
         });
         $('.icp-auto').iconpicker({input: 'input,.iconpicker-input',});
+        //initialize location service
+        function geoLocationInit() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, fail, {timeout:5000});
+            } else {
+                alert("Browser not supported");
+            }
+        }
+        //success
+        function success(position) {
+            lat = position.coords.latitude;
+            lng = position.coords.longitude;
+            mylatlng = L.latLng(position.coords.latitude, position.coords.longitude);
+            relocate(mylatlng);
+        }
+        //failed to get position
+        function fail() {
+            alert("Location Service is disabled");
+        }
+
         function Node(id) {
             this.id = id;
             this.fromid = [];
@@ -132,6 +155,11 @@
             document.getElementById("selectnode").classList.add('d-none');
             document.getElementById("selectnode2").classList.add('d-none');
         }
+
+        function relocate(mylatlng) {
+            mymap.setView(mylatlng, 16);
+        }
+
         var nodelist = [];
         var mymap = null;
         var proxyhighlight = null;
