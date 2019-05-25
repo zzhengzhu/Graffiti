@@ -8,7 +8,7 @@
                 <button type="button" class="btn btn-dark ml-2" data-toggle="modal" data-target="#sendStation">
                     Post
                 </button>
-                <button id="selectnode2" type="button" class="btn btn-dark ml-2" onclick=geoLocationInit()>
+                <button type="button" class="btn btn-dark ml-2" onclick=geoLocationInit()>
                     Locate
                 </button>
                 <button id="selectnode2" type="button" class="btn btn-dark ml-2 d-none" onclick=deselect()>Cancel Selection</button>
