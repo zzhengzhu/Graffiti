@@ -142,6 +142,7 @@
             var marker = e.target;
             //console.log(marker);
             proxyhighlight.setLatLng(marker.getLatLng());
+            mainmarker.setIcon(fromicon);
             document.getElementById("marker_id").value = marker.id;
             document.getElementById("mytag").innerHTML = marker.tag;
             document.getElementById("selectnode").classList.remove('d-none');
@@ -150,6 +151,7 @@
         
         function deselect() {
             proxyhighlight.setLatLng([0,0]);
+            mainmarker.setIcon(pulsingIcon);
             document.getElementById("marker_id").value = null;
             document.getElementById("mytag").innerHTML = null;
             document.getElementById("selectnode").classList.add('d-none');
@@ -167,7 +169,7 @@
         var lng = null;
         var latlng = null;
 
-        mymap = L.map('mapid', {
+        var mymap = L.map('mapid', {
             zoomControl: false, 
             wheelPxPerZoomLevel: 120, 
             zoomSnap: 0.1, 
@@ -185,8 +187,10 @@
         
 
         //cursor
-        let pulsingIcon = L.icon.pulse({iconSize:[10,10],color:'blue'});
-        let mainmarker =new L.marker([0,0], {icon: pulsingIcon}).bindPopup().addTo(mymap);
+        var pulsingIcon = L.icon.pulse({iconSize:[10,10],color:'blue'});
+
+        var mainmarker = new L.marker([0,0], {icon: pulsingIcon}).bindPopup().addTo(mymap);
+
         function onMapClick(e) {
             let clicklatlng = mymap.wrapLatLng(e.latlng);
 
@@ -206,23 +210,28 @@
         }
         mymap.on('click', onMapClick);
         
-        let adminicon = L.icon({
+        var adminicon = L.icon({
             iconUrl: 'images/admintoken.png',
             iconSize:     [40, 40], 
             iconAnchor:   [18, 22], 
             popupAnchor:  [0, -18]
         });
-        let smicon = L.icon({
+        var smicon = L.icon({
             iconUrl: 'images/none.png',
             iconSize:     [1, 1], 
             iconAnchor:   [1, 1], 
         });
-        let blackkicon = L.icon({
+        var toicon = L.icon({
             iconUrl: 'images/blackselection.png',
             iconSize:     [100, 100], 
             iconAnchor:   [75, 75], 
         });
-        proxyhighlight =new L.marker([0,0], {highlight: "permanent", icon: blackkicon}).addTo(mymap);
+        var fromicon = L.icon({
+            iconUrl: 'images/fromselection.png',
+            iconSize:     [100, 100], 
+            iconAnchor:   [75, 75], 
+        });
+        var proxyhighlight =new L.marker([0,0], {highlight: "permanent", icon: toicon}).addTo(mymap);
         
         //initialize station markers and lines
         $.post("/stations/load",{},function(markers){
