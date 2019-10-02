@@ -52,3 +52,8 @@ Route::resource('detectors', 'DetectorController')->except([
 Auth::routes(['verify' => true]);
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+//arcgis
+Route::get('/arcgis/index', 'ArcGISController@index')->name('arcgis.index');
+//google map
+Route::get('/google/index', 'GoogleMapController@index')->name('google.index');
