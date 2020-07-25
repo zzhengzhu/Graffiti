@@ -328,23 +328,42 @@
             $("#exp").css({"width": "{{$exp % 100}}%"});
 
 
+            var entityMap = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;',
+                '/': '&#x2F;',
+                '`': '&#x60;',
+                '=': '&#x3D;'
+            };
+
+            function escapeHtml (string) {
+                return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+                    return entityMap[s];
+                });
+            }
+
+
             //initialize post markers
             $.post("/pages/loadposts",{lat:lat, lng:lng},function(markers){
-                //console.log(markers);
+                markers = $.parseJSON(markers);
                 $.each(markers,function(i,val){
                     var m_location = L.latLng(val.location.coordinates[1], val.location.coordinates[0]);
-                    var m_username ="<p class='my-0 text-primary font-weight-bold'>" + val.user_name + "</p>";
+                    var m_username ="<p class='my-0 text-primary font-weight-bold'>" + escapeHtml(val.user_name) + "</p>";
                     //var m_radius = "<p class='my-0 text-success font-weight-bold'>Radius: " + val.radius + "</p>";
                     //var m_user_id = val.user_id;
                     //var m_radius = val.radius;
                     var html = document.createElement("div");
                     $(html).append(m_username);
                     if(val.content) {
-                        var m_content = "<p class='my-0'>" + val.content + "</p>";
+                        var m_content = "<p class='my-0'>" + escapeHtml(val.content) + "</p>";
+                        
                         $(html).append(m_content);
                     }
                     if(val.link) {
-                        var link = "<img class='rounded mx-auto d-block img-responsive' style='max-width: 300px; height: auto' src="+ val.link +"></img>";
+                        var link = "<img class='rounded mx-auto d-block img-responsive' style='max-width: 300px; height: auto' src="+ escapeHtml(val.link) +"></img>";
                         $(html).append(link);
                         //icon
                     } else {
@@ -397,16 +416,16 @@
                 $.each(markers,function(i,val){
                     //console.log(val);
                     var m_location = L.latLng(val.location.coordinates[1], val.location.coordinates[0]);
-                    var m_username ="<p class='my-0 text-primary font-weight-bold'>" + val.user_name + "</p>";
+                    var m_username ="<p class='my-0 text-primary font-weight-bold'>" + escapeHtml(val.user_name) + "</p>";
                     //var m_radius = "<p class='my-0 text-success font-weight-bold'>Radius: " + val.radius + "</p>";
                     var html = document.createElement("div");
                     $(html).append(m_username);
                     if(val.content) {
-                        var m_content = "<p class='my-0'>" + val.content + "</p>";
+                        var m_content = "<p class='my-0'>" + escapeHtml(val.content) + "</p>";
                         $(html).append(m_content);
                     }
                     if(val.link) {  
-                        var link = "<img class='rounded mx-auto d-block img-responsive' style='max-width: 300px; height: auto' src="+ val.link +"></img>";
+                        var link = "<img class='rounded mx-auto d-block img-responsive' style='max-width: 300px; height: auto' src="+ escapeHtml(val.link) +"></img>";
                         $(html).append(link);
                         //icon
                     } else {

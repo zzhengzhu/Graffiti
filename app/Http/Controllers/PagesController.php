@@ -107,7 +107,7 @@ class PagesController extends Controller
 
         //$array = json_decode(json_encode($posts));
         
-        return $all;
+        return $all->toJson();
     }
 
     public function loadpinpoints(Request $request) {

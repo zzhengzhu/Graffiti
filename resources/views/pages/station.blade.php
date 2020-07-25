@@ -144,7 +144,7 @@
             proxyhighlight.setLatLng(marker.getLatLng());
             mainmarker.setIcon(fromicon);
             document.getElementById("marker_id").value = marker.id;
-            document.getElementById("mytag").innerHTML = marker.tag;
+            document.getElementById("mytag").innerHTML = escapeHtml(marker.tag);
             document.getElementById("selectnode").classList.remove('d-none');
             document.getElementById("selectnode2").classList.remove('d-none');
         }
@@ -232,19 +232,37 @@
             iconAnchor:   [75, 75], 
         });
         var proxyhighlight =new L.marker([0,0], {highlight: "permanent", icon: toicon}).addTo(mymap);
+
+
+        var entityMap = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+            '/': '&#x2F;',
+            '`': '&#x60;',
+            '=': '&#x3D;'
+        };
+
+        function escapeHtml (string) {
+            return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+                return entityMap[s];
+            });
+        }
         
         //initialize station markers and lines
         $.post("/stations/load",{},function(markers){
             $.each(markers,function(i,val){
-
+                
                 let m_location = L.latLng(val.location.coordinates[1], val.location.coordinates[0]);
                 let html = document.createElement("div");
                 if(val.content) {
-                    let m_content = "<p class='my-0'>" + val.content + "</p>";
+                    let m_content = "<p class='my-0'>" + escapeHtml(val.content) + "</p>";
                     $(html).append(m_content);
                 }
                 if(val.link) {
-                    let link = "<img class='rounded mx-auto d-block img-responsive' style='max-width: 300px; height: auto' src="+ val.link +"></img>";
+                    let link = "<img class='rounded mx-auto d-block img-responsive' style='max-width: 300px; height: auto' src="+ escapeHtml(val.link) +"></img>";
                     $(html).append(link);
                 }
                 let m_id =val.id;
