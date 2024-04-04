@@ -29,8 +29,7 @@
     transform: translate(-50%, -50%);
     ">
         Graffiti is a Volunteer Geographic Information interface 
-        for location-based communication 
-        (<a href="https://github.com/zzhengzhu/Graffiti-open-data-archive">https://github.com/zzhengzhu/Graffiti-open-data-archive</a>). 
+        for location-based communication. 
         <br/><br/>
         <a class="btn btn-sm btn-dark" href="/tutorial">Go to Tutorial</a>
         <br/><br/>
